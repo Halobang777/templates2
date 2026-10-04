@@ -213,6 +213,7 @@
             object-fit: cover;
             object-position: center top;
             pointer-events: none;
+            display: block;
         }
 
         .piece-fullname-badge {
@@ -478,20 +479,20 @@
         }
     </style>
 </head>
-<body>
+<body class="chess-cyber">
 
     <div class="mobile-container">
         <!-- HEADER -->
         <div class="mobile-header">
             <div class="title-h1">CHESS TEAM 2</div>
             <select class="theme-selector" id="themeSelect" onchange="changeTheme(this.value)">
-                <option value="green" selected>Chess.com Classic Green (Hijau Terang)</option>
+                <option value="green">Chess.com Classic Green (Hijau Terang)</option>
                 <option value="wood">Chess.com Classic Wood (Cokelat Kayu)</option>
-                <option value="cyber">Cyber Revengers High-Contrast</option>
+                <option value="cyber" selected>Cyber Revengers High-Contrast</option>
             </select>
         </div>
 
-        <!-- STATUS BOX (HANYA SATU STATUS BERSIH) -->
+        <!-- STATUS BOX -->
         <div class="vs-box">
             <div class="status-badge" id="lblGameState">STATUS: MENUNGGU MULAI</div>
         </div>
@@ -599,7 +600,7 @@
             'p': -100, 'n': -320, 'b': -330, 'r': -500, 'q': -900, 'k': -20000
         };
 
-        let currentTheme = 'green';
+        let currentTheme = 'cyber';
 
         function getInitialBoard() {
             return [
@@ -1118,7 +1119,8 @@
 
             return `
                 <div class="cyber-avatar-wrap ${teamClass}">
-                    <img src="${avatarFile}" class="cyber-avatar-img" alt="${pieceChar}" onerror="this.parentElement.innerHTML='<span class=\\'${isWhite ? 'piece-white' : 'piece-black'}\\'>${UNICODE_PIECES[pieceChar]}</span>'">
+                    <img src="${avatarFile}" class="cyber-avatar-img" alt="${pieceChar}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="${isWhite ? 'piece-white' : 'piece-black'}" style="display:none; font-size: calc(var(--sq-size) * 0.7);">${UNICODE_PIECES[pieceChar]}</span>
                     ${fullNameBadgeHTML}
                 </div>
             `;
@@ -1391,7 +1393,7 @@
         }
 
         initCoords();
-        changeTheme('green');
+        changeTheme('cyber');
         syncPlayerRoles();
         renderBoard();
     </script>
